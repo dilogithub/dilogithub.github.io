@@ -1397,7 +1397,7 @@ class MyActivity : AppCompatActivity(), CaulyInterstitialAdListener, CaulyAdView
     // 아래와 같이 전면 광고 표시 여부 플래그를 사용하면, 전면 광고 수신 후, 노출 여부를 선택할 수 있다
     private var showCaulyInterstitial: Boolean = false
 
-    // Cauly 배너 광고
+    // 카울리 배너 광고
     private var caulyBannerAd: CaulyAdView? = null
 
 
@@ -1415,8 +1415,11 @@ class MyActivity : AppCompatActivity(), CaulyInterstitialAdListener, CaulyAdView
             setInterstialAdListener(this@ContentActivity)
         }
 
-        // Cauly 배너 광고 닫기 버튼 클릭 이벤트
+        // 카울리 배너 광고 닫기 버튼 클릭 이벤트
         viewBinding.caulyBannerClose.setOnClickListener {
+            // 배너 광고 닫기 시 완전한 리소스 반환을 위해 아래와 같이 처리 필요
+            //   1. CaulyAdView destory() 호출 및 null 처리
+            //   2. 카울리 배너 Root View의 removeAllViews() 호출
             caulyBannerAd?.destroy()
             caulyBannerAd = null
             viewBinding.caulyBanner.removeAllViews()
@@ -1714,9 +1717,11 @@ public class MyActivity extends AppCompatActivity implements CaulyInterstitialAd
                 return;
             }
 
+            // 배너 광고 닫기 시 완전한 리소스 반환을 위해 아래와 같이 처리 필요
+            //   1. CaulyAdView destory() 호출 및 null 처리
+            //   2. 카울리 배너 Root View의 removeAllViews() 호출
             caulyBannerAd.destroy();
             caulyBannerAd = null;
-
             viewBinding.caulyBanner.removeAllViews();
             viewBinding.caulyBannerWrapper.setVisibility(View.GONE);
         });
